@@ -1,0 +1,32 @@
+{
+  "name": "raconteur",
+  "version": "0.0.0",
+  "description": "Generate random text from a JSON grammar",
+  "main": "raconteur.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/danprince/raconteur.git"
+  },
+  "keywords": [
+    "text",
+    "random",
+    "raconteur",
+    "grammar",
+    "generate"
+  ],
+  "author": "Dan Prince <danthedev.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/danprince/raconteur/issues"
+  },
+  "homepage": "https://github.com/danprince/raconteur",
+  "devDependencies": {
+    "chai": "~2.3.0"
+  }
+}

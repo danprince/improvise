@@ -28,5 +28,8 @@
   "homepage": "https://github.com/danprince/raconteur",
   "devDependencies": {
     "chai": "~2.3.0"
+  },
+  "dependencies": {
+    "chalk": "~1.0.0"
   }
 }

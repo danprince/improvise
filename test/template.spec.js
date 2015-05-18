@@ -20,14 +20,12 @@ describe('Template', function() {
     });
 
     it('first element should be render text', function() {
-      expect(template[0]).to.be.eql({
-        render: 'Today is '
-      });
+      expect(template[0]).to.be.equal('Today is ');
     });
 
     it('second element should be lookup text', function() {
       expect(template[1]).to.be.eql({
-        lookup: 'day'
+        name: 'day'
       });
     });
 
@@ -46,18 +44,8 @@ describe('Template', function() {
       expect(Template.parse).to.be.a('function');
     });
 
-    it('should return an object', function() {
-      expect(parsed).to.be.an('object');
-    });
-
-    it('should have two properties', function() {
-      expect(parsed).to.have.property('raw');
-      expect(parsed).to.have.property('ranges');
-    });
-
-    it('should have correctly typed properties', function() {
-      expect(parsed.raw).to.be.a('string');
-      expect(parsed.ranges).to.be.an.instanceOf(Array);
+    it('should return an array', function() {
+      expect(parsed).to.be.an.instanceOf(Array);
     });
 
     it('should throw an error when called with non strings', function() {
@@ -80,15 +68,14 @@ describe('Template', function() {
       expect(compiled).to.be.an.instanceOf(Array);
     });
 
-    it('should have 3 elements', function() {
+    it('should have 5 elements', function() {
       expect(compiled).to.have.length(3);
     });
 
     it('should throw an error when called with non objects', function() {
-      expect(function() { Template.parse({}); }).to.throw(TypeError);
-      expect(function() { Template.parse(''); }).to.throw(TypeError);
-      expect(function() { Template.parse(0); }).to.throw(TypeError);
-      expect(function() { Template.parse(null); }).to.throw(TypeError);
+      expect(function() { Template.compile(''); }).to.throw(TypeError);
+      expect(function() { Template.compile(0); }).to.throw(TypeError);
+      expect(function() { Template.compile(null); }).to.throw(TypeError);
     });
   });
 

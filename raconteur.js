@@ -34,6 +34,18 @@ function Raconteur(json) {
     return evaluate(dictionary[name]);
   };
 
+  // add a new filter
+  raconteur.addFilter = function(name, filter) {
+    dictionary.__addFilter__(name, filter);
+  };
+
+  // add an object of filters
+  raconteur.addFilters = function(filters) {
+    Object.keys(filters).forEach(function(name) {
+      raconteur.addFilter(name, filters[name]);
+    });
+  };
+
   return raconteur;
 }
 

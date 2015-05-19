@@ -1,6 +1,6 @@
 var Raconteur = require('../raconteur');
 
-var rc = Raconteur({
+var rc = Raconteur.create({
   main: 'Hello {{name|uppercase}} {{color|uppercase}}. This is {{magic|magical}}!',
   color: ['blue', 'red', 'gold', 'yellow'],
   name: ['nick', 'tom', 'cathy', 'frank'],

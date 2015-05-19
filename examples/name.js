@@ -1,6 +1,6 @@
 var Raconteur = require('../raconteur');
 
-var rc = Raconteur({
+var rc = Raconteur.create({
   main: 'Raconteur stands for {{r}} {{a}} {{c}} {{o}} {{n}} {{t}} {{e}} {{u}} {{r2}}.',
   r: ['ranting', 'rabid', 'rapid'],
   a: ['antelopes', 'aphids', 'anteaters', 'astronauts'],

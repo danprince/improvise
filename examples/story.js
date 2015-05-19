@@ -1,6 +1,6 @@
-var raconteur = require('../raconteur');
+var Raconteur = require('../raconteur');
 
-var rc = raconteur({
+var rc = Raconteur.create({
   story: '{{sky}}\n{{today}}\n{{observation}}\n{{history}}',
   sky: 'The sky was {{color}} and the air was {{temperature}}.',
   today: 'It was just another {{day}} in {{place}}.',

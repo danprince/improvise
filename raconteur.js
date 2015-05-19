@@ -49,3 +49,14 @@ function Raconteur(json) {
   return raconteur;
 }
 
+/**
+ * @name Raconteur.create
+ * @type {function}
+ * @param {object} json
+ * @description
+ * An alias for the constructor style Raconteur function.
+ */
+Raconteur.create = function() {
+  return Raconteur.apply(null, arguments);
+};
+

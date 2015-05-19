@@ -1,6 +1,6 @@
 var Raconteur = require('../raconteur');
 
-var rc = Raconteur({
+var rc = Raconteur.create({
   main: 'Raconteur supports {{recursion}}.',
   recursion: [
     '{{recursion}}',

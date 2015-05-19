@@ -1,6 +1,6 @@
 var Raconteur = require('../raconteur');
 
-var rc = Raconteur({
+var rc = Raconteur.create({
   greeting: 'Raconteur, tells the {{adjective}} stories!',
   adjective: [
     'best',

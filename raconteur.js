@@ -37,6 +37,7 @@ function Raconteur(json) {
   // add a new filter
   raconteur.addFilter = function(name, filter) {
     dictionary.__addFilter__(name, filter);
+    return raconteur;
   };
 
   // add an object of filters
@@ -44,11 +45,13 @@ function Raconteur(json) {
     Object.keys(filters).forEach(function(name) {
       raconteur.addFilter(name, filters[name]);
     });
+    return raconteur;
   };
 
   // allow runtime extension
   raconteur.extend = function(json) {
     dictionary.__extend__(json);
+    return raconteur;
   };
 
   return raconteur;

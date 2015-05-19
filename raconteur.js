@@ -68,3 +68,8 @@ Raconteur.create = function() {
   return Raconteur.apply(null, arguments);
 };
 
+// browser shim
+if(window) {
+  window.Raconteur = Raconteur;
+}
+

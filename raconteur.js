@@ -46,6 +46,11 @@ function Raconteur(json) {
     });
   };
 
+  // allow runtime extension
+  raconteur.extend = function(json) {
+    dictionary.__extend__(json);
+  };
+
   return raconteur;
 }
 

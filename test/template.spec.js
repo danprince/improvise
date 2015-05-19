@@ -25,7 +25,8 @@ describe('Template', function() {
 
     it('second element should be lookup text', function() {
       expect(template[1]).to.be.eql({
-        name: 'day'
+        name: 'day',
+        filters: []
       });
     });
 

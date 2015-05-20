@@ -6,7 +6,7 @@
   <link href='http://fonts.googleapis.com/css?family=Londrina+Shadow' rel='stylesheet' type='text/css'>
   <link href='css/docs.css' rel='stylesheet'>
   <link rel='icon' href='favicon.ico'>
-  <script src='js/Improvise.js'></script>
+  <script src='js/improvise.js'></script>
   <script src='js/sandbox.js'></script>
 </head>
 <body>
@@ -26,7 +26,7 @@
       </p>
       <div class='sandbox'>
 <textarea class='code'>
-var rc = Improvise.create({
+var improv = Improvise.grammar({
   greeting: 'Improvise, tells {{adjective}} stories!',
   adjective: [
     'wonderful',
@@ -35,7 +35,7 @@ var rc = Improvise.create({
   ]
 });
 
-console.log(rc.tell('greeting'));
+console.log(improv('greeting'));
 </textarea>
       </div>
       <p>
@@ -50,15 +50,15 @@ console.log(rc.tell('greeting'));
       <div class='sandbox'>
 <textarea class='code'>
 var user = 'Dan';
-var rc = Improvise.create({
+var improv = Improvise.grammar({
   login: '{{greeting}} ' + user + '! Good to see you again!',
   logout: '{{farewell}} ' + user + '! See you next time!',
   greeting: [ 'Hey', 'What\'s up', 'Yo' ],
   farewell: [ 'Bye', 'Take it easy', 'Catch you later' ]
 });
 
-console.log(rc.tell('login'));
-console.log(rc.tell('logout'));
+console.log(improv('login'));
+console.log(improv('logout'));
 </textarea>
       </div>
       <p>
@@ -66,7 +66,7 @@ console.log(rc.tell('logout'));
       </p>
       <div class='sandbox'>
 <textarea class='code'>
-var rc = Improvise.create({
+var improv = Improvise.grammar({
   story: '{{intro}}\n{{description}}\n{{resolution}}',
   intro: 'The {{light}} lit the {{place}} and a shadowed figure approached.',
   description: 'The {{characteristic}} betrayed the disguise of {{name}}.',
@@ -88,7 +88,7 @@ var rc = Improvise.create({
   color: ['red', 'black', 'brown', 'blonde']
 });
 
-console.log(rc.tell('story'));
+console.log(improv('story'));
 </textarea>
       </div>
     </section>

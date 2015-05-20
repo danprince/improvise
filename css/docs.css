@@ -50,6 +50,11 @@ code > pre, .code {
   margin-bottom: .5em;
 }
 
+.code:focus {
+  outline: none;
+  background: #f4f4f4;
+}
+
 .sandbox .output {
   position: relative;
   display: block;
@@ -60,6 +65,7 @@ code > pre, .code {
   border-radius: .25em;
   font-family: monospace;
   cursor: pointer;
+  -webkit-user-select: none;
 }
 
 .sandbox .output:before {

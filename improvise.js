@@ -1,5 +1,6 @@
 var Dictionary = require('./lib/dictionary'),
-    Template = require('./lib/template');
+    Template = require('./lib/template'),
+    symbols = require('./lib/symbols');
 
 module.exports = Improvise;
 
@@ -29,6 +30,9 @@ function Improvise(json) {
   // alias function to property
   improvise.create = improvise;
 
+  // alias for symbol setting
+  improvise.__setSyntax__ = symbols.__set__;
+
   // process a raw string
   improvise.eval = function process(string) {
     var callableTemplate = dictionary.__callable__(Template(string));
@@ -54,7 +58,6 @@ function Improvise(json) {
     dictionary.__extend__(json);
     return improvise;
   };
-
 
   return improvise;
 }

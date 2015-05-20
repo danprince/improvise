@@ -1,32 +1,32 @@
 {
-  "name": "raconteur",
+  "name": "improvise",
   "version": "0.0.0",
   "description": "Generate random text from a JSON grammar",
-  "main": "raconteur.js",
+  "main": "improvise.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
     "test": "mocha",
-    "build": "browserify raconteur.js > build/raconteur.js"
+    "build": "browserify improvise.js > build/improvise.js"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/danprince/raconteur.git"
+    "url": "git://github.com/danprince/improvise.git"
   },
   "keywords": [
     "text",
     "random",
-    "raconteur",
+    "improvise",
     "grammar",
     "generate"
   ],
   "author": "Dan Prince <danthedev.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/danprince/raconteur/issues"
+    "url": "https://github.com/danprince/improvise/issues"
   },
-  "homepage": "https://github.com/danprince/raconteur",
+  "homepage": "https://github.com/danprince/improvise",
   "devDependencies": {
     "chai": "~2.3.0",
     "chalk": "~1.0.0",

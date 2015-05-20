@@ -1,7 +1,7 @@
-var Raconteur = require('../raconteur');
+var Improvise = require('../improvise');
 
-var rc = Raconteur.create({
-  greeting: 'Raconteur, tells the {{adjective}} stories!',
+var improv = Improvise.grammar({
+  greeting: 'Improvise, tells the {{adjective}} stories!',
   adjective: [
     'best',
     'brilliant',
@@ -9,4 +9,4 @@ var rc = Raconteur.create({
   ]
 });
 
-console.log(rc.tell('greeting'));
+console.log(improv('greeting'));

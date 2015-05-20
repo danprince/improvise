@@ -1,7 +1,7 @@
-var Raconteur = require('../raconteur');
+var Improvise = require('../improvise');
 
-var rc = Raconteur.create({
-  main: 'Raconteur supports {{recursion}}.',
+var improv = Improvise.grammar({
+  main: 'Improvise supports {{recursion}}.',
   recursion: [
     '{{recursion}}',
     'recursive definition',
@@ -10,4 +10,4 @@ var rc = Raconteur.create({
 });
 
 for(var i = 0; i < 10; i++)
-  console.log(rc.tell('main'));
+  console.log(improv('main'));

@@ -1,6 +1,6 @@
-var Raconteur = require('../raconteur');
+var Improvise = require('../improvise');
 
-var rc = Raconteur.create({
+var improv = Improvise.grammar({
   story: '{{sky}}\n{{today}}\n{{observation}}\n{{history}}',
   sky: 'The sky was {{color}} and the air was {{temperature}}.',
   today: 'It was just another {{day}} in {{place}}.',
@@ -42,6 +42,6 @@ var rc = Raconteur.create({
   ]
 });
 
-var story = rc.tell('story');
+var story = improv('story');
 console.log(story);
 

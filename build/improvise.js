@@ -1,4 +1,83 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+var Dictionary = require('./lib/dictionary'),
+    Template = require('./lib/template');
+
+module.exports = Improvise;
+
+/**
+ * @name Improvise
+ * @type {function}
+ * @param {object} json
+ * @description
+ * The wrapper object which combines both the dictionary and the
+ * templates to create a usable interface for creating dictionaries
+ * and evaluating properties from them.
+ */
+function Improvise(json) {
+  var dictionary = Dictionary(json);
+
+  function improvise(name) {
+    return evaluate(dictionary[name]);
+  }
+
+  function evaluate(callableList) {
+    return callableList.map(function(fn) {
+      return fn.call();
+    })
+    .join('');
+  }
+
+  // alias function to property
+  improvise.create = improvise;
+
+  // process a raw string
+  improvise.eval = function process(string) {
+    var callableTemplate = dictionary.__callable__(Template(string));
+    return evaluate(callableTemplate);
+  };
+
+  // add a new filter
+  improvise.addFilter = function(name, filter) {
+    dictionary.__addFilter__(name, filter);
+    return improvise;
+  };
+
+  // add an object of filters
+  improvise.addFilters = function(filters) {
+    Object.keys(filters).forEach(function(name) {
+      improvise.addFilter(name, filters[name]);
+    });
+    return improvise;
+  };
+
+  // allow runtime extension
+  improvise.extend = function(json) {
+    dictionary.__extend__(json);
+    return improvise;
+  };
+
+
+  return improvise;
+}
+
+/**
+ * @name Improvise.grammar
+ * @type {function}
+ * @param {object} json
+ * @description
+ * An alias for the constructor style Improvise function.
+ */
+Improvise.grammar = function() {
+  return Improvise.apply(null, arguments);
+};
+
+// browser shim
+if(typeof window === 'object') {
+  window.Improvise = Improvise;
+}
+
+
+},{"./lib/dictionary":2,"./lib/template":4}],2:[function(require,module,exports){
 var Template = require('./template');
 
 module.exports = Dictionary;
@@ -169,7 +248,7 @@ Dictionary.randomProperty = function(object) {
 };
 
 
-},{"./template":3}],2:[function(require,module,exports){
+},{"./template":4}],3:[function(require,module,exports){
 var symbols = module.exports = {
   "open": "{{",
   "close": "}}",
@@ -180,7 +259,7 @@ symbols.__set__ = function(name, symbol) {
   symbols[name] = symbol;
 };
 
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 var symbols = require('./symbols');
 
 module.exports = Template;
@@ -271,81 +350,4 @@ Template.tag = function(string) {
 };
 
 
-},{"./symbols":2}],4:[function(require,module,exports){
-var Dictionary = require('./lib/dictionary'),
-    Template = require('./lib/template');
-
-module.exports = Raconteur;
-
-/**
- * @name Raconteur
- * @type {function}
- * @param {object} json
- * @description
- * The wrapper object which combines both the dictionary and the
- * templates to create a usable interface for creating dictionaries
- * and evaluating properties from them.
- */
-function Raconteur(json) {
-  var raconteur = {},
-      dictionary = Dictionary(json);
-
-  function evaluate(callableList) {
-    return callableList.map(function(fn) {
-      return fn.call();
-    })
-    .join('');
-  }
-
-  // process a raw string
-  raconteur.process = function process(string) {
-    var callableTemplate = dictionary.__callable__(Template(string));
-    return evaluate(callableTemplate);
-  };
-
-  // evaluate a dictionary key
-  raconteur.tell = function tell(name) {
-    return evaluate(dictionary[name]);
-  };
-
-  // add a new filter
-  raconteur.addFilter = function(name, filter) {
-    dictionary.__addFilter__(name, filter);
-    return raconteur;
-  };
-
-  // add an object of filters
-  raconteur.addFilters = function(filters) {
-    Object.keys(filters).forEach(function(name) {
-      raconteur.addFilter(name, filters[name]);
-    });
-    return raconteur;
-  };
-
-  // allow runtime extension
-  raconteur.extend = function(json) {
-    dictionary.__extend__(json);
-    return raconteur;
-  };
-
-  return raconteur;
-}
-
-/**
- * @name Raconteur.create
- * @type {function}
- * @param {object} json
- * @description
- * An alias for the constructor style Raconteur function.
- */
-Raconteur.create = function() {
-  return Raconteur.apply(null, arguments);
-};
-
-// browser shim
-if(window) {
-  window.Raconteur = Raconteur;
-}
-
-
-},{"./lib/dictionary":1,"./lib/template":3}]},{},[4]);
+},{"./symbols":3}]},{},[1]);

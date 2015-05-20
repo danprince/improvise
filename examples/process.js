@@ -1,6 +1,6 @@
-var Raconteur = require('../raconteur');
+var Improvise = require('../improvise');
 
-var rc = Raconteur.create({
+var improv = Improvise.grammar({
   language: [
     'Javascript',
     'Ruby',
@@ -35,7 +35,7 @@ var rc = Raconteur.create({
   ]
 });
 
-var joke = rc.process('I am a {{language}} programmer, therefore I only drink {{beverage}} and eat {{snack}}.');
+var joke = improv.eval('I am a {{language}} programmer, therefore I only drink {{beverage}} and eat {{snack}}.');
 
 console.log(joke);
 

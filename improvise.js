@@ -1,10 +1,10 @@
 var Dictionary = require('./lib/dictionary'),
     Template = require('./lib/template');
 
-module.exports = Raconteur;
+module.exports = Improvise;
 
 /**
- * @name Raconteur
+ * @name Improvise
  * @type {function}
  * @param {object} json
  * @description
@@ -12,9 +12,12 @@ module.exports = Raconteur;
  * templates to create a usable interface for creating dictionaries
  * and evaluating properties from them.
  */
-function Raconteur(json) {
-  var raconteur = {},
-      dictionary = Dictionary(json);
+function Improvise(json) {
+  var dictionary = Dictionary(json);
+
+  function improvise(name) {
+    return evaluate(dictionary[name]);
+  }
 
   function evaluate(callableList) {
     return callableList.map(function(fn) {
@@ -23,53 +26,52 @@ function Raconteur(json) {
     .join('');
   }
 
+  // alias function to property
+  improvise.create = improvise;
+
   // process a raw string
-  raconteur.process = function process(string) {
+  improvise.eval = function process(string) {
     var callableTemplate = dictionary.__callable__(Template(string));
     return evaluate(callableTemplate);
   };
 
-  // evaluate a dictionary key
-  raconteur.tell = function tell(name) {
-    return evaluate(dictionary[name]);
-  };
-
   // add a new filter
-  raconteur.addFilter = function(name, filter) {
+  improvise.addFilter = function(name, filter) {
     dictionary.__addFilter__(name, filter);
-    return raconteur;
+    return improvise;
   };
 
   // add an object of filters
-  raconteur.addFilters = function(filters) {
+  improvise.addFilters = function(filters) {
     Object.keys(filters).forEach(function(name) {
-      raconteur.addFilter(name, filters[name]);
+      improvise.addFilter(name, filters[name]);
     });
-    return raconteur;
+    return improvise;
   };
 
   // allow runtime extension
-  raconteur.extend = function(json) {
+  improvise.extend = function(json) {
     dictionary.__extend__(json);
-    return raconteur;
+    return improvise;
   };
 
-  return raconteur;
+
+  return improvise;
 }
 
 /**
- * @name Raconteur.create
+ * @name Improvise.grammar
  * @type {function}
  * @param {object} json
  * @description
- * An alias for the constructor style Raconteur function.
+ * An alias for the constructor style Improvise function.
  */
-Raconteur.create = function() {
-  return Raconteur.apply(null, arguments);
+Improvise.grammar = function() {
+  return Improvise.apply(null, arguments);
 };
 
 // browser shim
-if(window) {
-  window.Raconteur = Raconteur;
+if(typeof window === 'object') {
+  window.Improvise = Improvise;
 }
 

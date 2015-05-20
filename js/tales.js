@@ -275,10 +275,10 @@ Template.tag = function(string) {
 var Dictionary = require('./lib/dictionary'),
     Template = require('./lib/template');
 
-module.exports = Raconteur;
+module.exports = Tales;
 
 /**
- * @name Raconteur
+ * @name Tales
  * @type {function}
  * @param {object} json
  * @description
@@ -286,8 +286,8 @@ module.exports = Raconteur;
  * templates to create a usable interface for creating dictionaries
  * and evaluating properties from them.
  */
-function Raconteur(json) {
-  var raconteur = {},
+function Tales(json) {
+  var Tales = {},
       dictionary = Dictionary(json);
 
   function evaluate(callableList) {
@@ -298,53 +298,53 @@ function Raconteur(json) {
   }
 
   // process a raw string
-  raconteur.process = function process(string) {
+  Tales.process = function process(string) {
     var callableTemplate = dictionary.__callable__(Template(string));
     return evaluate(callableTemplate);
   };
 
   // evaluate a dictionary key
-  raconteur.tell = function tell(name) {
+  Tales.tell = function tell(name) {
     return evaluate(dictionary[name]);
   };
 
   // add a new filter
-  raconteur.addFilter = function(name, filter) {
+  Tales.addFilter = function(name, filter) {
     dictionary.__addFilter__(name, filter);
-    return raconteur;
+    return Tales;
   };
 
   // add an object of filters
-  raconteur.addFilters = function(filters) {
+  Tales.addFilters = function(filters) {
     Object.keys(filters).forEach(function(name) {
-      raconteur.addFilter(name, filters[name]);
+      Tales.addFilter(name, filters[name]);
     });
-    return raconteur;
+    return Tales;
   };
 
   // allow runtime extension
-  raconteur.extend = function(json) {
+  Tales.extend = function(json) {
     dictionary.__extend__(json);
-    return raconteur;
+    return Tales;
   };
 
-  return raconteur;
+  return Tales;
 }
 
 /**
- * @name Raconteur.create
+ * @name Tales.create
  * @type {function}
  * @param {object} json
  * @description
- * An alias for the constructor style Raconteur function.
+ * An alias for the constructor style Tales function.
  */
-Raconteur.create = function() {
-  return Raconteur.apply(null, arguments);
+Tales.create = function() {
+  return Tales.apply(null, arguments);
 };
 
 // browser shim
 if(window) {
-  window.Raconteur = Raconteur;
+  window.Tales = Tales;
 }
 
 

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Improvise</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href='http://fonts.googleapis.com/css?family=Londrina+Shadow' rel='stylesheet' type='text/css'>
+  <link href='css/docs.css' rel='stylesheet'>
+  <link rel='icon' href='favicon.ico'>
+  <script src='js/Improvise.js'></script>
+  <script src='js/sandbox.js'></script>
+</head>
+<body>
+  <main>
+    <header>
+      <h1 class='title'>improvise</h1>
+      <nav>
+        <a href='docs.html'>docs</a>
+        <a href='examples.html'>examples</a>
+        <a href='#somewhere'>help</a>
+      </nav>
+    </header>
+
+    <section>
+      <p>
+        Improvise is a little library for creating random bodies of text from a simple JSON grammar.
+      </p>
+      <div class='sandbox'>
+<textarea class='code'>
+var rc = Improvise.create({
+  greeting: 'Improvise, tells {{adjective}} stories!',
+  adjective: [
+    'wonderful',
+    'brilliant',
+    'the most {{adjective}}'
+  ]
+});
+
+console.log(rc.tell('greeting'));
+</textarea>
+      </div>
+      <p>
+        <em>You can edit any of the examples. Clicking the output label will re-evaluate the code.</em>
+      </p>
+    </section>
+
+    <section>
+      <p>
+        You can use Improvise to do anything from adding a personality to your UI...
+      </p>
+      <div class='sandbox'>
+<textarea class='code'>
+var user = 'Dan';
+var rc = Improvise.create({
+  login: '{{greeting}} ' + user + '! Good to see you again!',
+  logout: '{{farewell}} ' + user + '! See you next time!',
+  greeting: [ 'Hey', 'What\'s up', 'Yo' ],
+  farewell: [ 'Bye', 'Take it easy', 'Catch you later' ]
+});
+
+console.log(rc.tell('login'));
+console.log(rc.tell('logout'));
+</textarea>
+      </div>
+      <p>
+      ...to creating backstories for characters in a game.
+      </p>
+      <div class='sandbox'>
+<textarea class='code'>
+var rc = Improvise.create({
+  story: '{{intro}}\n{{description}}\n{{resolution}}',
+  intro: 'The {{light}} lit the {{place}} and a shadowed figure approached.',
+  description: 'The {{characteristic}} betrayed the disguise of {{name}}.',
+  resolution: [
+    'It was likely that it had always been a trap.',
+    'You embraced, as old friends.',
+    'Too little, too late, you realised.'
+  ],
+  characteristic: [
+    '{{hairstyle}} {{color}} hair',
+    '{{last}} shield sigil'
+  ],
+  light: ['sun', 'moon', 'fire', 'lantern'],
+  place: ['cliff', 'bridge', 'trees', 'stream', 'gates', 'hillside', 'tunnel'],
+  name: '{{first}} {{last}}',
+  first: ['Mark', 'Fay', 'Eli', 'John'],
+  last: ['Waters', 'Snow', 'Rivers', 'Sand'],
+  hairstyle: ['short', 'long', 'curly', 'cropped'],
+  color: ['red', 'black', 'brown', 'blonde']
+});
+
+console.log(rc.tell('story'));
+</textarea>
+      </div>
+    </section>
+
+    <section>
+      <p>Improvise can deal with incredibly complex grammars at speed. Take a look at some of the <a href='examples.html'>examples</a> for ideas of what can be achieved.</p>
+    </section>
+
+
+    <footer>
+      A project by <a href='http://github.com/danprince'>@danprince</a>.
+      Released under the <a href='https://raw.githubusercontent.com/danprince/Improvise/master/LICENSE'>MIT License</a>.
+    </footer>
+  </main>
+</body>
+</html>

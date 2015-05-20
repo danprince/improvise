@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Improvise</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href='http://fonts.googleapis.com/css?family=Londrina+Shadow' rel='stylesheet' type='text/css'>
+  <link href='css/docs.css' rel='stylesheet'>
+  <link rel='icon' href='favicon.ico'>
+  <script src='js/improvise.js'></script>
+  <script src='js/sandbox.js'></script>
+</head>
+<body>
+  <main class='docs'>
+    <header>
+      <h1 class='title'>
+        <a href='index.html'>improvise</a>
+      </h1>
+      <nav>
+        <a href='docs.html'>docs</a>
+        <a href='examples.html'>examples</a>
+        <a href='guide.html'>guide</a>
+      </nav>
+    </header>
+
+    <h1>Docs</h1>
+    <p>
+      <em>You can edit any of the examples. Clicking the output label will re-evaluate the code.</em>
+    </p>
+
+    <section>
+      <h2>Improvise.grammar</h2>
+      Improvise.grammar(<span class='type'>object</span> grammarObject)
+      <h3>Params</h3>
+      <ul class='params'>
+        <li>
+          <strong>dictionary</strong>
+          <span class='type'>object</span>
+          <p>
+            A one level deep object of strings and arrays.
+          </p>
+        </li>
+      </ul>
+      <h3>Return</h3>
+      <p>
+        <span class='type'>function</span>
+        An evaluable grammar function.
+      </p>
+      <h3>Example</h3>
+      <div class='sandbox'>
+<textarea class='code'>
+var improv = Improvise.grammar({
+  template: 'I have a {{color}} {{shape}}.',
+  color: ['red', 'blue', 'green'],
+  shape: 'circle'
+});
+
+console.log(improv('template'));
+</textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>improvise.eval</h2>
+      improvise.eval(<span class='type'>string</span> templateString)
+      <h3>Params</h3>
+      <ul class='params'>
+        <li>
+          <strong>string</strong>
+          <span class='type'>string</span>
+          <p>
+            A valid template string.
+          </p>
+        </li>
+      </ul>
+      <h3>Return</h3>
+      <p>
+        <span class='type'>string</span>
+        The evaluated template string.
+      </p>
+      <h3>Example</h3>
+      <div class='sandbox'>
+<textarea class='code'>
+var improv = Improvise.grammar({
+  template: 'I have a {{color}} {{shape}}.',
+  color: ['red', 'blue', 'green'],
+  shape: 'circle'
+});
+
+console.log(improv.eval('{{color}} {{shape}}s.'));
+</textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>improvise.addFilter</h2>
+      improvise.addFilter(<span class='type'>string</span> filterName, <span class='type'>function</span> filterFn)
+      <p>Add a filter function to the grammar.</p>
+      <h3>Params</h3>
+      <ul class='params'>
+        <li>
+          <strong>filterName</strong>
+          <span class='type'>string</span>
+          <p>
+            The name of the filter.
+          </p>
+        </li>
+        <li>
+          <strong>filterFn</strong>
+          <span class='type'>function</span>
+          <p>
+            The filter function.
+          </p>
+        </li>
+      </ul>
+      <h3>Return</h3>
+      <p>
+        <span class='type'>Improvise</span>
+        The Improvise instance. Chainable interface.
+      </p>
+      <h3>Example</h3>
+      <div class='sandbox'>
+<textarea class='code'>
+var improv = Improvise.grammar({
+template: 'My favourite colour is {{color|reverse}}.',
+  color: ['der', 'eulb', 'neerg']
+})
+.addFilter('reverse', function(string) {
+  return string
+    .split('')
+    .reverse()
+    .join('');
+});
+
+console.log(improv('template'));
+</textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>improvise.addFilters</h2>
+      improvise.addFilters(<span class='type'>object</span> filters)
+      <p>An alternative interface for adding multiple filters at once.</p>
+      <h3>Params</h3>
+      <ul class='params'>
+        <li>
+          <strong>filter</strong>
+          <span class='type'>object</span>
+          <p>
+            An object of filters.
+          </p>
+        </li>
+      </ul>
+      <h3>Return</h3>
+      <p>
+        <span class='type'>Improvise</span>
+        The Improvise instance. Chainable interface.
+      </p>
+      <h3>Example</h3>
+      <div class='sandbox'>
+<textarea class='code'>
+var improv = Improvise.grammar({
+  template: 'My favourite colours are {{color|reverse|pluralize}}.',
+  color: ['der', 'eulb', 'neerg']
+})
+.addFilters({
+  reverse: function(string) {
+    return string
+      .split('')
+      .reverse()
+      .join('');
+  },
+  pluralize: function(string) {
+    return string + 's';
+  }
+});
+
+console.log(improv('template'));
+</textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>improvise.extend</h2>
+      improvise.extend(<span class='type'>object</span> grammar)
+      <p>An interface for extending a grammar at run time.</p>
+      <h3>Params</h3>
+      <ul class='params'>
+        <li>
+          <span class='type'>object</span>
+          <strong>grammar</strong>
+          <p>
+            A grammar object.
+          </p>
+        </li>
+      </ul>
+      <h3>Return</h3>
+      <p>
+        <span class='type'>Improvise</span>
+        The Improvise instance. Chainable interface.
+      </p>
+      <h3>Example</h3>
+      <div class='sandbox'>
+<textarea class='code'>
+var improv = Improvise.grammar({
+  color: ['red', 'blue', 'green']
+});
+
+console.log(improv.eval('My favourite color is {{color}}.'));
+improv.extend({
+  shape: ['triangle', 'circle', 'square']
+});
+console.log(improv.eval('I like {{color}} {{shape}}s.'));
+</textarea>
+      </div>
+    </section>
+
+    <footer>
+      A project by <a href='http://github.com/danprince'>@danprince</a>.
+      Released under the <a href='https://raw.githubusercontent.com/danprince/Improvise/master/LICENSE'>MIT License</a>.
+    </footer>
+  </main>
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Improvise</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href='http://fonts.googleapis.com/css?family=Londrina+Shadow' rel='stylesheet' type='text/css'>
+  <link href='css/docs.css' rel='stylesheet'>
+  <link rel='icon' href='favicon.ico'>
+  <script src='js/improvise.js'></script>
+  <script src='js/sandbox.js'></script>
+</head>
+<body>
+  <main>
+    <header>
+      <h1 class='title'>
+        <a href='index.html'>improvise</a>
+      </h1>
+      <nav>
+        <a href='docs.html'>docs</a>
+        <a href='examples.html'>examples</a>
+        <a href='guide.html'>guide</a>
+      </nav>
+    </header>
+
+    <h1>Guide</h1>
+    <p>
+      <em>You can edit any of the examples. Clicking the output label will re-evaluate the code.</em>
+    </p>
+
+    <section id='templates'>
+      <h2>Templates</h2>
+      <p>
+        Improvise uses a handlebars-esque syntax for template tags.
+      </p>
+      <div class='sandbox'>
+<textarea class='code'>
+var improv = Improvise.grammar({
+  template: 'I have a {{color}} {{shape}}.',
+  color: ['red', 'blue', 'green'],
+  shape: 'circle'
+});
+
+console.log(improv('template'));
+</textarea>
+      </div>
+      <p>
+        When Improvise comes across a template tag, it will search
+        for it's definition within the grammar. If it finds an array,
+        it will pick a random element from that array. Otherwise it
+        will use whatever value it finds.
+      </p>
+      <p>
+        It's templates all the way down, so you can include a template
+        tag at any level of your grammar.
+      </p>
+    </section>
+
+    <section id='eval'>
+      <h2>Eval</h2>
+      <p>
+        You can evaluate a new grammar at runtime, using the eval method.
+      </p>
+      <div class='sandbox'>
+<textarea class='code'>
+var improv = Improvise.grammar({
+  template: 'I have a {{color}} {{shape}}.',
+  color: ['red', 'blue', 'green'],
+  shape: ['circle', 'square', 'triangle']
+});
+
+var sentence = improv.eval('I would like a {{shape}} that is {{color}}.');
+console.log(sentence);
+</textarea>
+      </div>
+    </section>
+
+    <section id='filters'>
+      <h2>Filters</h2>
+      <p>
+        If you need to tweak your output, you can use a filter.
+      </p>
+      <div class='sandbox'>
+<textarea class='code'>
+var improv = Improvise.grammar({
+  name: '{{first|capitalize}} {{last|capitalize}}',
+  first: ['jon', 'danerys', 'tyrion'],
+  last: ['snow', 'Targaryen', 'lannister']
+})
+.addFilter('capitalize', function(str) {
+  return str[0].toUpperCase() + str.slice(1);
+});
+
+console.log(improv('name'));
+</textarea>
+      </div>
+      <p>You can even string multiple filters together.</p>
+      <div class='sandbox'>
+<textarea class='code'>
+var improv = Improvise.grammar({
+  name: '{{first|capitalize|reverse}} {{last|reverse|capitalize}}',
+  first: ['jon', 'danerys', 'tyrion'],
+  last: ['snow', 'Targaryen', 'lannister']
+})
+.addFilters({
+  capitalize: function(str) {
+    return str[0].toUpperCase() + str.slice(1);
+  },
+  reverse: function(str) {
+    return str.split('').reverse().join('');
+  }
+});
+
+console.log(improv('name'));
+</textarea>
+      </div>
+    </section>
+
+    <section id='extension'>
+      <h2>Extension</h2>
+      <p>
+        You can extend the grammar at run time with the extend method.
+      </p>
+      <div class='sandbox'>
+<textarea class='code'>
+var improv = Improvise.grammar({
+  template: 'I like {{color}} shapes.',
+  color: ['red', 'green', 'blue']
+})
+
+console.log(improv('template'));
+
+improv.extend({
+  shape: ['circle', 'triangle', 'square']
+});
+
+console.log(improv.eval('Especially {{color}} {{shape}}s.'));
+</textarea>
+      </div>
+    </section>
+
+    <section id='syntax'>
+      <h2>Syntax</h2>
+      <p>
+        You can customize the syntax that Improvise will use to parse
+        templates.
+      </p>
+      <div class='sandbox'>
+<textarea class='code'>
+Improvise.__setSyntax__('open', '<');
+Improvise.__setSyntax__('close', '>');
+Improvise.__setSyntax__('filter', ':');
+
+var improv = Improvise.grammar({
+  template: 'I like <color> shapes.',
+  color: ['red', 'green', 'blue']
+})
+
+console.log(improv('template'));
+</textarea>
+      </div>
+      <p>
+        Improvise compiles the grammar straight away, so it's important
+        that if you need to, you change the syntax before calling
+        Improvise.grammar.
+      </p>
+    </section>
+
+    <footer>
+      A project by <a href='http://github.com/danprince'>@danprince</a>.
+      Released under the <a href='https://raw.githubusercontent.com/danprince/Improvise/master/LICENSE'>MIT License</a>.
+    </footer>
+  </main>
+</body>
+</html>

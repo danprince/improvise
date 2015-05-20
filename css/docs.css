@@ -1,5 +1,10 @@
 body {
   font-family: Georgia, serif;
+  font-family: monospace, serif;
+}
+
+p {
+  font-size: .9em;
 }
 
 main {
@@ -25,13 +30,19 @@ footer {
 }
 
 main > section {
-  margin-bottom: 2.5em;
+  margin-bottom: 3.5em;
+  padding: .2em 0;
 }
 
 .title {
   font-family: 'Londrina Shadow', cursive;
   color: #666;
   font-size: 3em;
+}
+
+.title a {
+  color: #666;
+  text-decoration: none;
 }
 
 .title + nav {
@@ -46,7 +57,8 @@ code > pre, .code {
   padding: .5em;
   border: 0;
   width: 100%;
-  height: 13.5em;
+  height: auto;
+  min-height: 50px;
   margin-bottom: .5em;
 }
 
@@ -87,3 +99,16 @@ code > pre, .code {
   margin-right: .3em;
 }
 
+.type {
+  background: #def9dc;
+  padding: .2em .4em;
+  border-radius: .2em;
+}
+
+.params {
+  list-style-type: none;
+}
+
+.docs > section {
+  margin-bottom: 4em;
+}

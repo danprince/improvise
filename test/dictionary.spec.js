@@ -1,7 +1,8 @@
 var chai = require('chai'),
     expect = chai.expect;
 
-var Dictionary = require('../lib/dictionary');
+var Dictionary = require('../lib/dictionary'),
+    Template = require('../lib/template');
 
 describe('Dictionary', function() {
   var json = {
@@ -15,22 +16,11 @@ describe('Dictionary', function() {
 
   describe('[constructor]', function() {
     var dictionary = Dictionary(json);
+  });
 
-    it('should return an object', function() {
-      expect(dictionary).to.be.an('object');
-    });
-
-    it('should have the correct properties', function() {
-      expect(dictionary).to.have.property('shape');
-      expect(dictionary).to.have.property('color');
-    });
-
-    it('should have the correct meta properties', function() {
-      expect(dictionary).to.have.property('__callable__');
-      expect(dictionary).to.have.property('__filters__');
-      expect(dictionary).to.have.property('__addFilter__');
-      expect(dictionary).to.have.property('__extend__');
-    });
+  describe('#randomProperty', function() {
 
   });
+
+
 });

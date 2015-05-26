@@ -1,0 +1,29 @@
+{
+  "name": "improvise",
+  "main": "improvise.js",
+  "description": "Generate random text from a JSON grammar",
+  "version": "0.0.0",
+  "homepage": "https://github.com/danprince/improvise",
+  "authors": [
+    "danprince <danthedev.com>"
+  ],
+  "keywords": [
+    "text",
+    "random",
+    "improvise",
+    "grammar",
+    "generate"
+  ],
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "lib"
+  ]
+}

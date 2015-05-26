@@ -28,7 +28,7 @@ function Improvise(json) {
   }
 
   // alias function to property
-  improvise.create = improvise;
+  improvise.render = improvise;
 
   // alias for symbol setting
   improvise.__setSyntax__ = symbols.__set__;

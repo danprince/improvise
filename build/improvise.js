@@ -306,8 +306,6 @@ function Improvise(json) {
   // alias function to property
   improvise.render = improvise;
 
-  // alias for symbol setting
-  improvise.__setSyntax__ = symbols.__set__;
 
   // process a raw string
   improvise.eval = function process(string) {
@@ -348,6 +346,13 @@ function Improvise(json) {
 Improvise.grammar = function() {
   return Improvise.apply(null, arguments);
 };
+
+/**
+ * @name Improvise.__setSyntax__
+ * @type {function}
+ * @alias symbols.__set__
+ */
+Improvise.__setSyntax__ = symbols.__set__;
 
 // browser shim
 if(typeof window === 'object') {

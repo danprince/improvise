@@ -2,7 +2,6 @@ var app = {};
 
 app.bootstrap = function() {
   var sandboxes = document.getElementsByClassName('sandbox');
-  console.log('bootstrap');
 
   [].forEach.call(sandboxes, app.createSandbox);
 };
@@ -31,7 +30,6 @@ function Sandbox(textarea) {
   function resize() {
     var scrollHeight = textarea.scrollHeight;
 
-    console.log(scrollHeight, Sandbox.MIN_HEIGHT);
     if(scrollHeight > Sandbox.MAX_HEIGHT) {
       height = Sandbox.MAX_HEIGHT;
     } else if(scrollHeight < Sandbox.MIN_HEIGHT) {

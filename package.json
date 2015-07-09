@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "mocha",
-    "build": "browserify improvise.js > build/improvise.js"
+    "build": "browserify lib/improvise.js > improvise.js"
   },
   "repository": {
     "type": "git",
